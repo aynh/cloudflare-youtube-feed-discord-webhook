@@ -1,0 +1,19 @@
+{
+  "name": "cloudflare-youtube-feed-discord-webhook",
+  "version": "1.0.0",
+  "author": "Aynh <aynlazur@gmail.com>",
+  "description": "Send a Discord webhook whenever a certain channel creates/schedules/modify a video/stream using Cloudflare Workers",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "typecheck": "tsc"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^3.14.1",
+    "tsup": "^6.2.2",
+    "typescript": "^4.7.4"
+  }
+}

@@ -1,0 +1,11 @@
+[build]
+publish = "./private"
+
+[functions]
+directory = "./private/functions"
+
+[[redirects]]
+from = "/"
+to = "/.netlify/functions/main"
+status = 200
+force = true
