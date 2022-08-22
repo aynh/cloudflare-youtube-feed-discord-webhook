@@ -10,13 +10,13 @@ export interface YoutubeFeedDiscordWebhookOptions {
     webhookUsername?: string
   }
   hooks?: {
-    filterResponse: (response: FunctionResponse) => boolean
-    filterResponseArchive: (response: FunctionResponse) => boolean
-    mapDiscordEmbed: (
+    filterResponse?: (response: FunctionResponse) => boolean
+    filterResponseArchive?: (response: FunctionResponse) => boolean
+    mapDiscordEmbed?: (
       embed: DiscordEmbed,
       { value, oldValue }: FunctionResponseMap
     ) => DiscordEmbed
-    mapDiscordWebhookMessage: (
+    mapDiscordWebhookMessage?: (
       message: DiscordWebhookMessage
     ) => DiscordWebhookMessage
   }

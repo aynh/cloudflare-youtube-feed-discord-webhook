@@ -164,7 +164,9 @@ export const buildDiscordWebhookMessages = (
   const embeds = data
     .map((it) => [buildDiscordEmbed(it), it] as const)
     .filter(([embed]) => embed !== undefined)
-    .map(([embed, it]) => options.hooks?.mapDiscordEmbed(embed!, it) ?? embed!)
+    .map(
+      ([embed, it]) => options.hooks?.mapDiscordEmbed?.(embed!, it) ?? embed!
+    )
 
   // discord only allows a maximum of 10 embeds/webhook
   return chunked(embeds, 10)
@@ -174,7 +176,7 @@ export const buildDiscordWebhookMessages = (
       embeds: embeds_,
     }))
     .map(
-      (message) => options.hooks?.mapDiscordWebhookMessage(message) ?? message
+      (message) => options.hooks?.mapDiscordWebhookMessage?.(message) ?? message
     )
 }
 

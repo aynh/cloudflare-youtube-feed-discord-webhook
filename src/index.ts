@@ -16,7 +16,7 @@ export const handle = async (options: YoutubeFeedDiscordWebhookOptions) => {
   })
 
   const filteredResponses = responses.filter(
-    (value) => options.hooks?.filterResponse(value) ?? true
+    (value) => options.hooks?.filterResponse?.(value) ?? true
   )
 
   const { store, storeKey } = options
@@ -40,7 +40,7 @@ export const handle = async (options: YoutubeFeedDiscordWebhookOptions) => {
 
     const archive: FunctionResponseArchive = Object.fromEntries(
       Object.entries(responsesArchive).filter(
-        ([_, value]) => options.hooks?.filterResponseArchive(value) ?? true
+        ([_, value]) => options.hooks?.filterResponseArchive?.(value) ?? true
       )
     )
     await store.put(storeKey, JSON.stringify(archive))
