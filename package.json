@@ -15,5 +15,14 @@
     "@cloudflare/workers-types": "^3.14.1",
     "tsup": "^6.2.2",
     "typescript": "^4.7.4"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aynh/cloudflare-youtube-feed-discord-webhook.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Aynh/cloudflare-youtube-feed-discord-webhook/issues"
+  },
+  "homepage": "https://github.com/Aynh/cloudflare-youtube-feed-discord-webhook",
+  "private": false
 }
