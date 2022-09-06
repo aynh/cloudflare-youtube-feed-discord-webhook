@@ -135,7 +135,7 @@ const buildDiscordEmbed = (
               `**${newValue_}**`,
             ])
 
-            if (embed.footer !== undefined) embed.footer = { text: 'UPDATED' }
+            if (embed.footer === undefined) embed.footer = { text: 'UPDATED' }
             modified = true
           }
 
