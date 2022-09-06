@@ -120,7 +120,7 @@ const buildDiscordEmbed = (
             const startsAt = newValue.liveTime?.actualStart
             descriptions.unshift([timestampAsDescription(startsAt)!])
 
-            embed.footer = { text: 'PREMIERE/LIVE NOW' }
+            embed.footer = { text: 'LIVE NOW' }
             modified = true
           }
 
