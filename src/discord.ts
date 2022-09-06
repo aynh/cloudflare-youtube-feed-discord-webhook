@@ -80,7 +80,7 @@ const buildDiscordEmbed = (
 ): DiscordEmbed | undefined => {
   const { oldValue, value } = item
 
-  const timestampAsDescription = (n?: number) => {
+  const timestampDescription = (n?: number) => {
     if (n !== undefined) {
       const timestamp = discordUnixTimestamp(n, 'longDateTime')
       const relativeTimestamp = discordUnixTimestamp(n, 'relativeTime')
@@ -92,51 +92,71 @@ const buildDiscordEmbed = (
   if (oldValue === undefined) {
     if (value.isUpcoming) {
       const scheduledAt = value.liveTime?.scheduledStart
-      embed.description = timestampAsDescription(scheduledAt)
+      embed.description = timestampDescription(scheduledAt)
 
       embed.footer = { text: 'UPCOMING' }
     } else if (value.liveNow) {
       const startsAt = value.liveTime?.actualStart
-      embed.description = timestampAsDescription(startsAt)
+      embed.description = timestampDescription(startsAt)
 
       embed.footer = { text: 'LIVE NOW' }
     } else {
-      embed.description = timestampAsDescription(value.published)
+      embed.description = timestampDescription(value.published)
       embed.footer = { text: 'NEW UPLOAD' }
     }
   } else {
-    const newValue = value
+    const getValuePair = <T extends keyof typeof value>(key: T) => ({
+      previous: oldValue[key],
+      current: value[key],
+    })
 
-    let modified = false
+    let isModified = false
     const descriptions: string[][] = []
     for (const k in oldValue) {
       const key = k as keyof typeof oldValue
-      const oldValue_ = oldValue[key]
-      const newValue_ = newValue[key]
 
       switch (key) {
         case 'isUpcoming': {
-          if (!newValue_ && oldValue_ && newValue.liveNow) {
-            const startsAt = newValue.liveTime?.actualStart
-            descriptions.unshift([timestampAsDescription(startsAt)!])
+          const { current, previous } = getValuePair(key)
+          if (!current && previous && value.liveNow) {
+            const startsAt = value.liveTime?.actualStart
+            descriptions.unshift([timestampDescription(startsAt)!])
 
             embed.footer = { text: 'LIVE NOW' }
-            modified = true
+            isModified = true
+          }
+
+          break
+        }
+
+        case 'liveTime': {
+          const { current, previous } = getValuePair(key)
+          if (
+            previous?.actualStart === undefined &&
+            current?.actualStart !== undefined &&
+            !value.liveNow
+          ) {
+            const endsAt = current.actualEnd
+            descriptions.unshift([timestampDescription(endsAt)!])
+
+            embed.footer = { text: 'WAS LIVE' }
+            isModified = true
           }
 
           break
         }
 
         case 'title': {
-          if (oldValue_ !== newValue_) {
+          const { current, previous } = getValuePair(key)
+          if (previous !== current) {
             descriptions.push([
               '**Title**',
-              `~~${oldValue_}~~`,
-              `**${newValue_}**`,
+              `~~${previous}~~`,
+              `**${current}**`,
             ])
 
             if (embed.footer === undefined) embed.footer = { text: 'UPDATED' }
-            modified = true
+            isModified = true
           }
 
           break
@@ -147,7 +167,7 @@ const buildDiscordEmbed = (
       }
     }
 
-    if (!modified) return
+    if (!isModified) return
 
     embed.description = descriptions
       .map((description) => description.join('\n'))
