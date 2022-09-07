@@ -1,4 +1,4 @@
-import { DiscordEmbed, DiscordWebhookMessage } from '@/discord'
+import { DiscordEmbed, DiscordWebhookMessage } from '@/discord/types'
 
 export interface YoutubeFeedDiscordWebhookOptions {
   channelIds: string[]
