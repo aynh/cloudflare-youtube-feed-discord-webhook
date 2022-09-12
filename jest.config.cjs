@@ -8,4 +8,5 @@ module.exports = {
       useESM: true,
     },
   },
+  reporters: ['default', 'github-actions'],
 }
