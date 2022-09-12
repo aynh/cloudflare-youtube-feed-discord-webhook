@@ -1,9 +1,17 @@
 {
   "name": "cloudflare-youtube-feed-discord-webhook",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Aynh <aynlazur@gmail.com>",
   "description": "Send a Discord webhook whenever a certain channel creates/schedules/modify a video/stream using Cloudflare Workers",
   "license": "MIT",
+  "keywords": [
+    "discord",
+    "discord-webhooks",
+    "youtube",
+    "youtube-api",
+    "cloudflare-workers",
+    "notify"
+  ],
   "files": [
     "dist"
   ],
