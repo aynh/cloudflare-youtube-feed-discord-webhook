@@ -120,6 +120,9 @@ describe('transformNotFresh transformation', () => {
     const builder = new DiscordEmbedBuilder({ value, oldValue })
 
     builder.transform(transformNotFresh)
+    expect(builder.modified).toBe(true)
+    expect(builder.body.description).toBeDefined()
+    expect(builder.body.footer?.text).toBe('LIVE NOW')
   })
 
   test('short-lasted premiere', () => {
