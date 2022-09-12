@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals'
 
-import { FunctionResponse } from '@/shared'
+import { FunctionResponse } from '~/shared'
 import { DiscordEmbedBuilder } from './builder'
 import { transformFresh, transformNotFresh } from './transformer'
 

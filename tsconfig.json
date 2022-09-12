@@ -11,7 +11,7 @@
     "strict": true,
     "strictNullChecks": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "~/*": ["./src/*"]
     }
   },
   "include": ["src"]

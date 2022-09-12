@@ -2,7 +2,7 @@ import {
   FunctionResponseMap,
   YoutubeFeedDiscordWebhookOptions,
   chunked,
-} from '@/shared'
+} from '~/shared'
 import { buildDiscordEmbed } from './embed-builder/builder'
 import { DiscordWebhookMessage } from './types'
 

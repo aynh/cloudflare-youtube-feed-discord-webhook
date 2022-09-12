@@ -1,10 +1,10 @@
-import { buildDiscordWebhookMessages, sendDiscordWebhooks } from '@/discord'
+import { buildDiscordWebhookMessages, sendDiscordWebhooks } from '~/discord'
 import {
   FunctionResponse,
   FunctionResponseArchive,
   FunctionResponseMap,
   YoutubeFeedDiscordWebhookOptions,
-} from '@/shared'
+} from '~/shared'
 
 export const handle = async (options: YoutubeFeedDiscordWebhookOptions) => {
   const url = new URL('https://youtube-feed-fn.netlify.app')
@@ -47,5 +47,5 @@ export const handle = async (options: YoutubeFeedDiscordWebhookOptions) => {
   }
 }
 
-export * from '@/discord/helper'
-export * from '@/shared'
+export * from '~/discord/helper'
+export * from '~/shared'
