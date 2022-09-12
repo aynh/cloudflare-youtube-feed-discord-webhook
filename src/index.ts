@@ -47,5 +47,5 @@ export const handle = async (options: YoutubeFeedDiscordWebhookOptions) => {
   }
 }
 
-export * from '@/helper'
+export * from '@/discord/helper'
 export * from '@/shared'

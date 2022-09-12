@@ -14,9 +14,9 @@ const timestampMap = {
   relativeTime: 'R',
 }
 
-export const discordUnixTimestamp = (
+export const discordUnixTimestamp = <T extends keyof typeof timestampMap>(
   n: number,
-  style?: keyof typeof timestampMap
+  style?: T
 ) => `<t:${n / 1000}:${timestampMap[style ?? 'shortDateTime']}>`
 
 const mentionMap = {
@@ -25,5 +25,7 @@ const mentionMap = {
   role: '@&',
 }
 
-export const discordMention = (id: number, type: keyof typeof mentionMap) =>
-  `<${mentionMap[type]}${id}>`
+export const discordMention = <T extends keyof typeof mentionMap>(
+  id: number,
+  type: T
+) => `<${mentionMap[type]}${id}>`
