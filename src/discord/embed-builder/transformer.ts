@@ -44,19 +44,19 @@ export const transformNotFresh = (builder: DiscordEmbedBuilder) => {
       const key = k as keyof FunctionResponse
 
       switch (key) {
-        // case 'liveNow': {
-        //   const { current, previous } = getValues(key)
+        case 'liveNow': {
+          const { current, previous } = getValues(key)
 
-        //   if (current && !previous) {
-        //     builder.setValue(
-        //       'description',
-        //       timestampDescription(value.liveTime?.actualStart)
-        //     )
-        //     builder.setValue('footer', { text: 'LIVE NOW' })
-        //   }
+          if (current && !previous) {
+            builder.setValue(
+              'description',
+              timestampDescription(value.liveTime?.actualStart)
+            )
+            builder.setValue('footer', { text: 'LIVE NOW' })
+          }
 
-        //   break
-        // }
+          break
+        }
 
         case 'liveTime': {
           const { current, previous } = getValues(key)
