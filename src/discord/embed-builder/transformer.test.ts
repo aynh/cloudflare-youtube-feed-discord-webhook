@@ -1,8 +1,39 @@
 import { describe, expect, test } from '@jest/globals'
 
 import { FunctionResponse } from '~/shared'
+import { discordUnixTimestamp } from '../helper'
 import { DiscordEmbedBuilder } from './builder'
-import { transformFresh, transformNotFresh } from './transformer'
+import {
+  transformFresh,
+  transformNotFresh,
+  defaultTimestamp,
+  rangeTimestamp,
+} from './transformer'
+
+describe('helpers', () => {
+  test('defaultTimestamp', () => {
+    const value = 1661176800000
+
+    const absoluteTimestamp = discordUnixTimestamp(value, 'shortDateTime')
+    const relativeTimestamp = discordUnixTimestamp(value, 'relativeTime')
+    const expected = `**${absoluteTimestamp} | ${relativeTimestamp}**`
+
+    const result = defaultTimestamp(value)
+    expect(result).toBe(expected)
+  })
+
+  test('rangeTimestamp', () => {
+    const to = 1661342981000,
+      from = 1661342409000
+
+    const fromAbsoluteTimestamp = discordUnixTimestamp(from, 'shortDateTime')
+    const toAbsoluteTimestamp = discordUnixTimestamp(to, 'shortDateTime')
+    const expected = `**${fromAbsoluteTimestamp} - ${toAbsoluteTimestamp}**`
+
+    const result = rangeTimestamp(from, to)
+    expect(result).toBe(expected)
+  })
+})
 
 describe('transformFresh transformation', () => {
   test('isUpcoming is true', () => {

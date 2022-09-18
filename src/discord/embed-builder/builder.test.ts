@@ -2,7 +2,8 @@ import { describe, expect, test } from '@jest/globals'
 
 import type { FunctionResponse } from '~/shared'
 import { youtubeChannelLinkFromChannelId } from '../helper'
-import { DiscordEmbedBuilder } from './builder'
+import { buildDiscordEmbed, DiscordEmbedBuilder } from './builder'
+import { transformFresh, transformNotFresh } from './transformer'
 
 const value: FunctionResponse = {
   videoId: 'CWjhbVmYrw8',
@@ -59,10 +60,13 @@ describe('DiscordEmbedBuilder methods', () => {
     const builder = createBuilder()
     expect(builder.modified).toBe(false)
 
-    builder.body.fields = [
+    builder.pushFields({ name: '1', value: '' }, { name: '2', value: '' })
+    expect(builder.body.fields).toStrictEqual([
       { name: '1', value: '' },
       { name: '2', value: '' },
-    ]
+    ])
+    expect(builder.modified).toBe(true)
+
     builder.pushFields({ name: '3', value: '' }, { name: '4', value: '' })
     expect(builder.body.fields).toStrictEqual([
       { name: '1', value: '' },
@@ -77,10 +81,13 @@ describe('DiscordEmbedBuilder methods', () => {
     const builder = createBuilder()
     expect(builder.modified).toBe(false)
 
-    builder.body.fields = [
+    builder.unshiftFields({ name: '1', value: '' }, { name: '2', value: '' })
+    expect(builder.body.fields).toStrictEqual([
       { name: '1', value: '' },
       { name: '2', value: '' },
-    ]
+    ])
+    expect(builder.modified).toBe(true)
+
     builder.unshiftFields({ name: '-1', value: '' }, { name: '0', value: '' })
     expect(builder.body.fields).toStrictEqual([
       { name: '-1', value: '' },
@@ -89,5 +96,99 @@ describe('DiscordEmbedBuilder methods', () => {
       { name: '2', value: '' },
     ])
     expect(builder.modified).toBe(true)
+  })
+})
+
+describe('buildDiscordEmbed behavior', () => {
+  test('same value and oldValue', () => {
+    const value: FunctionResponse = {
+      videoId: '8m1Y-brrqds',
+      avatar:
+        'https://yt3.ggpht.com/roGS60A8a_lDbVakIg1JU3u3hbtjHSTilMGHMizuPKh7tuoY2nl46raxuW2f_83IKFGMjL6Z=s48-c-k-c0x00ffffff-no-rj',
+      author: 'Laplus ch. ラプラス・ダークネス - holoX -',
+      channelId: 'UCENwRMx5Yh42zWpzURebzTw',
+      title:
+        '【JUMP KING】おしとやかにJUMP KING耐久│おしとやかじゃなくなったら即終了！【ラプラス・ダークネス/ホロライブ】',
+      published: 1662554943000,
+      thumbnail: 'https://i.ytimg.com/vi/8m1Y-brrqds/hqdefault.jpg',
+      liveNow: false,
+      liveTime: {
+        scheduledStart: 1662553800000,
+      },
+      isUpcoming: true,
+    }
+
+    expect(buildDiscordEmbed({ value, oldValue: value })).toBeUndefined()
+  })
+
+  test('no oldValue', () => {
+    const value = {
+      videoId: '8m1Y-brrqds',
+      avatar:
+        'https://yt3.ggpht.com/roGS60A8a_lDbVakIg1JU3u3hbtjHSTilMGHMizuPKh7tuoY2nl46raxuW2f_83IKFGMjL6Z=s48-c-k-c0x00ffffff-no-rj',
+      author: 'Laplus ch. ラプラス・ダークネス - holoX -',
+      channelId: 'UCENwRMx5Yh42zWpzURebzTw',
+      title:
+        '【JUMP KING】おしとやかにJUMP KING耐久│おしとやかじゃなくなったら即終了！【ラプラス・ダークネス/ホロライブ】',
+      published: 1662554943000,
+      thumbnail: 'https://i.ytimg.com/vi/8m1Y-brrqds/hqdefault.jpg',
+      liveNow: false,
+      liveTime: {
+        scheduledStart: 1662553800000,
+      },
+      isUpcoming: true,
+    }
+
+    const builder = new DiscordEmbedBuilder({ value })
+    builder.transform(transformFresh)
+
+    const result = buildDiscordEmbed({ value })
+    builder.setValue('color', result?.color)
+
+    expect(result).toStrictEqual(builder.body)
+  })
+
+  test('with oldValue', () => {
+    const oldValue: FunctionResponse = {
+      videoId: '8m1Y-brrqds',
+      avatar:
+        'https://yt3.ggpht.com/roGS60A8a_lDbVakIg1JU3u3hbtjHSTilMGHMizuPKh7tuoY2nl46raxuW2f_83IKFGMjL6Z=s48-c-k-c0x00ffffff-no-rj',
+      author: 'Laplus ch. ラプラス・ダークネス - holoX -',
+      channelId: 'UCENwRMx5Yh42zWpzURebzTw',
+      title:
+        '【JUMP KING】おしとやかにJUMP KING耐久│おしとやかじゃなくなったら即終了！【ラプラス・ダークネス/ホロライブ】',
+      published: 1662554943000,
+      thumbnail: 'https://i.ytimg.com/vi/8m1Y-brrqds/hqdefault.jpg',
+      liveNow: false,
+      liveTime: {
+        scheduledStart: 1662553800000,
+      },
+      isUpcoming: true,
+    }
+
+    const value: FunctionResponse = {
+      videoId: '8m1Y-brrqds',
+      avatar:
+        'https://yt3.ggpht.com/roGS60A8a_lDbVakIg1JU3u3hbtjHSTilMGHMizuPKh7tuoY2nl46raxuW2f_83IKFGMjL6Z=s48-c-k-c0x00ffffff-no-rj',
+      author: 'Laplus ch. ラプラス・ダークネス - holoX -',
+      channelId: 'UCENwRMx5Yh42zWpzURebzTw',
+      title:
+        '【JUMP KING】おしとやかに頂点を目指します💜│おしとやかじゃなくなったら即終了！【ラプラス・ダークネス/ホロライブ】',
+      published: 1662554943000,
+      thumbnail: 'https://i.ytimg.com/vi/8m1Y-brrqds/hqdefault.jpg',
+      liveNow: false,
+      liveTime: {
+        scheduledStart: 1662553800000,
+      },
+      isUpcoming: true,
+    }
+
+    const builder = new DiscordEmbedBuilder({ value, oldValue })
+    builder.transform(transformNotFresh)
+
+    const result = buildDiscordEmbed({ value, oldValue })
+    builder.setValue('color', result?.color)
+
+    expect(result).toStrictEqual(builder.body)
   })
 })

@@ -27,5 +27,9 @@ test('randomInt random integer generation', () => {
     const result = randomInt(-5, 5)
     expect(result).toBeGreaterThanOrEqual(-5)
     expect(result).toBeLessThanOrEqual(5)
+
+    const noArgumentResult = randomInt()
+    expect(noArgumentResult).toBeGreaterThanOrEqual(0)
+    expect(noArgumentResult).toBeLessThanOrEqual(1)
   }
 })

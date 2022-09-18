@@ -21,7 +21,6 @@ export class DiscordEmbedBuilder {
         icon_url: avatar,
         url: youtubeChannelLinkFromChannelId(channelId),
       },
-      fields: [],
       color: randomInt(0, 16_777_215),
       image: { url: thumbnail },
       timestamp: new Date(published),

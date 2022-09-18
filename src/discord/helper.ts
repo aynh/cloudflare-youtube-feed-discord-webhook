@@ -20,12 +20,12 @@ export const discordUnixTimestamp = <T extends keyof typeof timestampMap>(
 ) => `<t:${n / 1000}:${timestampMap[style ?? 'shortDateTime']}>`
 
 const mentionMap = {
-  user: '@',
   channel: '#',
   role: '@&',
+  user: '@',
 }
 
 export const discordMention = <T extends keyof typeof mentionMap>(
-  id: number,
+  id: number | bigint,
   type: T
 ) => `<${mentionMap[type]}${id}>`
