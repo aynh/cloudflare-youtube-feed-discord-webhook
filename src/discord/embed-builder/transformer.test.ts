@@ -81,7 +81,7 @@ describe('transformFresh transformation', () => {
 })
 
 describe('transformNotFresh transformation', () => {
-  test('liveNow becomes true', () => {
+  test('liveNow becomes true from false', () => {
     const oldValue: FunctionResponse = {
       videoId: 'tquGIPXpnEA',
       avatar:
@@ -123,6 +123,49 @@ describe('transformNotFresh transformation', () => {
     expect(builder.modified).toBe(true)
     expect(builder.body.description).toBeDefined()
     expect(builder.body.footer?.text).toBe('LIVE NOW')
+  })
+
+  test('liveFrom becomes false from true', () => {
+    const oldValue: FunctionResponse = {
+      videoId: '9xQKU2ardbQ',
+      avatar:
+        'https://yt3.ggpht.com/ytc/AMLnZu964JdsIo_bQUYiSok7-4RzPzXz84GL5b9V5k3k=s48-c-k-c0x00ffffff-no-rj',
+      author: 'ナナヲアカリ OFFICIAL',
+      channelId: 'UCrrNHoXQ1uTYsR6v41pDalQ',
+      title: '陽傘 / ナナヲアカリ',
+      published: 1661342409000,
+      thumbnail: 'https://i.ytimg.com/vi/9xQKU2ardbQ/maxresdefault_live.jpg',
+      liveNow: true,
+      liveTime: {
+        scheduledStart: 1661342400000,
+      },
+      isUpcoming: true,
+    }
+
+    const value: FunctionResponse = {
+      videoId: '9xQKU2ardbQ',
+      avatar:
+        'https://yt3.ggpht.com/ytc/AMLnZu964JdsIo_bQUYiSok7-4RzPzXz84GL5b9V5k3k=s48-c-k-c0x00ffffff-no-rj',
+      author: 'ナナヲアカリ OFFICIAL',
+      channelId: 'UCrrNHoXQ1uTYsR6v41pDalQ',
+      title: '陽傘 / ナナヲアカリ',
+      published: 1661342409000,
+      thumbnail: 'https://i.ytimg.com/vi/9xQKU2ardbQ/maxresdefault.jpg',
+      liveNow: false,
+      liveTime: {
+        actualEnd: 1661342981000,
+        actualStart: 1661342409000,
+        scheduledStart: 1661342400000,
+      },
+      isUpcoming: false,
+    }
+
+    const builder = new DiscordEmbedBuilder({ value, oldValue })
+
+    builder.transform(transformNotFresh)
+    expect(builder.modified).toBe(true)
+    expect(builder.body.description).toBeDefined()
+    expect(builder.body.footer?.text).toBe('WAS LIVE')
   })
 
   test('short-lasted premiere', () => {

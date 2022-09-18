@@ -53,6 +53,12 @@ export const transformNotFresh = (builder: DiscordEmbedBuilder) => {
               timestampDescription(value.liveTime?.actualStart)
             )
             builder.setValue('footer', { text: 'LIVE NOW' })
+          } else if (!current && previous) {
+            builder.setValue(
+              'description',
+              timestampDescription(value.liveTime?.actualEnd)
+            )
+            builder.setValue('footer', { text: 'WAS LIVE' })
           }
 
           break
