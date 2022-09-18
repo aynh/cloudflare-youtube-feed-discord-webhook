@@ -2,12 +2,16 @@ import { FunctionResponse } from '~/shared'
 import { DiscordEmbedBuilder } from './builder'
 import { discordUnixTimestamp } from '../helper'
 
-const timestampDescription = (n?: number) => {
-  if (n !== undefined) {
-    const timestamp = discordUnixTimestamp(n, 'longDateTime')
-    const relativeTimestamp = discordUnixTimestamp(n, 'relativeTime')
-    return `**${timestamp} ; ${relativeTimestamp}**`
-  }
+export const defaultTimestamp = (n: number) => {
+  const absoluteTimestamp = discordUnixTimestamp(n, 'shortDateTime')
+  const relativeTimestamp = discordUnixTimestamp(n, 'relativeTime')
+  return `**${absoluteTimestamp} | ${relativeTimestamp}**`
+}
+
+export const rangeTimestamp = (from: number, to: number) => {
+  const fromAbsoluteTimestamp = discordUnixTimestamp(from, 'shortDateTime')
+  const toAbsoluteTimestamp = discordUnixTimestamp(to, 'shortDateTime')
+  return `**${fromAbsoluteTimestamp} - ${toAbsoluteTimestamp}**`
 }
 
 export const transformFresh = (builder: DiscordEmbedBuilder) => {
@@ -16,17 +20,17 @@ export const transformFresh = (builder: DiscordEmbedBuilder) => {
   if (value.isUpcoming) {
     builder.setValue(
       'description',
-      timestampDescription(value.liveTime?.scheduledStart)
+      defaultTimestamp(value.liveTime!.scheduledStart!)
     )
     builder.setValue('footer', { text: 'UPCOMING' })
   } else if (value.liveNow) {
     builder.setValue(
       'description',
-      timestampDescription(value.liveTime?.actualStart)
+      defaultTimestamp(value.liveTime!.actualStart!)
     )
     builder.setValue('footer', { text: 'LIVE NOW' })
   } else {
-    builder.setValue('description', timestampDescription(value.published))
+    builder.setValue('description', defaultTimestamp(value.published))
     builder.setValue('footer', { text: 'NEW UPLOAD' })
   }
 }
@@ -50,13 +54,16 @@ export const transformNotFresh = (builder: DiscordEmbedBuilder) => {
           if (current && !previous) {
             builder.setValue(
               'description',
-              timestampDescription(value.liveTime?.actualStart)
+              defaultTimestamp(value.liveTime!.actualStart!)
             )
             builder.setValue('footer', { text: 'LIVE NOW' })
           } else if (!current && previous) {
             builder.setValue(
               'description',
-              timestampDescription(value.liveTime?.actualEnd)
+              rangeTimestamp(
+                value.liveTime!.actualStart!,
+                value.liveTime!.actualEnd!
+              )
             )
             builder.setValue('footer', { text: 'WAS LIVE' })
           }
@@ -74,7 +81,7 @@ export const transformNotFresh = (builder: DiscordEmbedBuilder) => {
           ) {
             builder.setValue(
               'description',
-              timestampDescription(current.actualEnd)
+              rangeTimestamp(current.actualStart, current.actualEnd)
             )
             builder.setValue('footer', { text: 'WAS LIVE' })
           }
