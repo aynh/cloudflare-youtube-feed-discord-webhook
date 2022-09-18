@@ -1,6 +1,10 @@
 # Youtube > Cloudflare Workers > Discord Webhook
 
-![npm](https://img.shields.io/npm/v/cloudflare-youtube-feed-discord-webhook?style=for-the-badge) ![npm](https://img.shields.io/npm/dw/cloudflare-youtube-feed-discord-webhook?style=for-the-badge) ![GitHub](https://img.shields.io/github/license/Aynh/cloudflare-youtube-feed-discord-webhook?style=for-the-badge) ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/Aynh/cloudflare-youtube-feed-discord-webhook/Tests/main?label=tests&style=for-the-badge) ![GitHub last commit](https://img.shields.io/github/last-commit/Aynh/cloudflare-youtube-feed-discord-webhook?style=for-the-badge)
+[![npm version](https://img.shields.io/npm/v/cloudflare-youtube-feed-discord-webhook?style=for-the-badge)](https://www.npmjs.com/package/cloudflare-youtube-feed-discord-webhook)
+[![npm downloads](https://img.shields.io/npm/dw/cloudflare-youtube-feed-discord-webhook?style=for-the-badge)](https://www.npmjs.com/package/cloudflare-youtube-feed-discord-webhook)
+[![License](https://img.shields.io/github/license/Aynh/cloudflare-youtube-feed-discord-webhook?style=for-the-badge)](./LICENSE)
+[![GitHub Workflow Status (main)](https://img.shields.io/github/workflow/status/Aynh/cloudflare-youtube-feed-discord-webhook/Tests/main?label=tests&style=for-the-badge)](https://github.com/Aynh/cloudflare-youtube-feed-discord-webhook/actions/workflows/tests.yaml)
+[![GitHub last commit](https://img.shields.io/github/last-commit/Aynh/cloudflare-youtube-feed-discord-webhook?style=for-the-badge)](https://github.com/Aynh/cloudflare-youtube-feed-discord-webhook/commit/HEAD)
 
 Send a Discord webhook ([demo](#demo)) whenever ~~your oshi~~ a certain channel creates/schedules/modify a video/stream using Cloudflare Workers.
 
