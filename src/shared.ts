@@ -2,7 +2,7 @@ import { DiscordEmbed, DiscordWebhookMessage } from '~/discord/types'
 
 export interface YoutubeFeedDiscordWebhookOptions {
   channelIds: string[]
-  webhookUrl: string
+  webhookUrl: string | string[]
   store: KVNamespace
   storeKey: string
   discord?: {

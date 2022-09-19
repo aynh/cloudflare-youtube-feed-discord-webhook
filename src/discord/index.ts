@@ -33,16 +33,19 @@ export const sendDiscordWebhooks = async (
   messages: DiscordWebhookMessage[],
   { webhookUrl }: Pick<YoutubeFeedDiscordWebhookOptions, 'webhookUrl'>
 ) => {
+  const urls = Array.isArray(webhookUrl) ? webhookUrl : [webhookUrl]
   for (const message of messages) {
-    const response = await fetch(webhookUrl, {
-      body: JSON.stringify(message),
-      headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      method: 'POST',
-    })
+    for (const url of urls) {
+      const response = await fetch(url, {
+        body: JSON.stringify(message),
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        method: 'POST',
+      })
 
-    if (!response.ok) {
-      const text = await response.text()
-      throw text
+      if (!response.ok) {
+        const text = await response.text()
+        throw `Error (${response.status}) while sending webhook to ${url}: ${text}`
+      }
     }
   }
 }
