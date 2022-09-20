@@ -1,4 +1,4 @@
-import type { FunctionResponse } from '~/shared'
+import type { FunctionResponse } from '~/types'
 import type { DiscordEmbedBuilder } from './builder'
 import { discordUnixTimestamp } from '../helper'
 

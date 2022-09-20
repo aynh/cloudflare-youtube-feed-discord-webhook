@@ -1,4 +1,5 @@
-import { FunctionResponseMap, randomInt } from '~/shared'
+import { randomInt } from '~/shared'
+import type { FunctionResponseMap } from '~/types'
 import {
   youtubeChannelLinkFromChannelId,
   youtubeVideoLinkFromVideoId,

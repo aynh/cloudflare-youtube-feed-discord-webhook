@@ -4,7 +4,7 @@ import type {
   FunctionResponseArchive,
   FunctionResponseMap,
   YoutubeFeedDiscordWebhookOptions,
-} from '~/shared'
+} from '~/types'
 
 export const handle = async (options: YoutubeFeedDiscordWebhookOptions) => {
   // this url is my (currently closed source) `youtube-feed` service
@@ -59,3 +59,6 @@ export const handle = async (options: YoutubeFeedDiscordWebhookOptions) => {
 
 export * from '~/discord/helper'
 export * from '~/shared'
+
+export * from '~/types'
+export * from '~/discord/types'

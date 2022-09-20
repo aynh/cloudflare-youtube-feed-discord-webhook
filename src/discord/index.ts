@@ -1,8 +1,8 @@
-import {
+import { chunked } from '~/shared'
+import type {
   FunctionResponseMap,
   YoutubeFeedDiscordWebhookOptions,
-  chunked,
-} from '~/shared'
+} from '~/types'
 import { buildDiscordEmbed } from './embed-builder/builder'
 import type { DiscordWebhookMessage } from './types'
 

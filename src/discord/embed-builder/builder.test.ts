@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals'
 
-import type { FunctionResponse } from '~/shared'
+import type { FunctionResponse } from '~/types'
 import { youtubeChannelLinkFromChannelId } from '../helper'
 import { buildDiscordEmbed, DiscordEmbedBuilder } from './builder'
 import { transformFresh, transformNotFresh } from './transformer'
