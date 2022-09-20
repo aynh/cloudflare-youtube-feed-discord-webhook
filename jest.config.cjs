@@ -1,3 +1,5 @@
+const { pathsToModuleNameMapper } = require('ts-jest')
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   preset: 'ts-jest/presets/default-esm',
@@ -12,4 +14,8 @@ module.exports = {
     ],
   },
   reporters: ['default', 'github-actions'],
+  moduleNameMapper: pathsToModuleNameMapper(
+    { '~/*': ['./src/*'] },
+    { prefix: '<rootDir>/' }
+  ),
 }
