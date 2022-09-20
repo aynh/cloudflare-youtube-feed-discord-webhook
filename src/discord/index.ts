@@ -4,7 +4,7 @@ import {
   chunked,
 } from '~/shared'
 import { buildDiscordEmbed } from './embed-builder/builder'
-import { DiscordWebhookMessage } from './types'
+import type { DiscordWebhookMessage } from './types'
 
 export const buildDiscordWebhookMessages = (
   data: FunctionResponseMap[],
@@ -19,10 +19,10 @@ export const buildDiscordWebhookMessages = (
 
   // discord only allows a maximum of 10 embeds/webhook
   return chunked(embeds, 10)
-    .map((embeds_) => ({
+    .map((embedsChunk) => ({
       avatar_url: options.discord?.webhookAvatar,
       username: options.discord?.webhookUsername,
-      embeds: embeds_,
+      embeds: embedsChunk,
     }))
     .map(
       (message) => options.hooks?.mapDiscordWebhookMessage?.(message) ?? message

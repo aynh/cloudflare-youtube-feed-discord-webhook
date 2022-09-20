@@ -1,9 +1,9 @@
-import { FunctionResponseMap, randomInt } from '../../shared'
+import { FunctionResponseMap, randomInt } from '~/shared'
 import {
   youtubeChannelLinkFromChannelId,
   youtubeVideoLinkFromVideoId,
 } from '../helper'
-import { DiscordEmbed, DiscordEmbedField } from '../types'
+import type { DiscordEmbed, DiscordEmbedField } from '../types'
 import { transformFresh, transformNotFresh } from './transformer'
 
 export class DiscordEmbedBuilder {
@@ -70,5 +70,7 @@ export const buildDiscordEmbed = ({ value, oldValue }: FunctionResponseMap) => {
   const builder = new DiscordEmbedBuilder({ value, oldValue })
   builder.transform(oldValue === undefined ? transformFresh : transformNotFresh)
 
-  if (builder.modified) return builder.body
+  if (!builder.modified) return
+
+  return builder.body
 }

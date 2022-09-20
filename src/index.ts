@@ -1,5 +1,5 @@
 import { buildDiscordWebhookMessages, sendDiscordWebhooks } from '~/discord'
-import {
+import type {
   FunctionResponse,
   FunctionResponseArchive,
   FunctionResponseMap,

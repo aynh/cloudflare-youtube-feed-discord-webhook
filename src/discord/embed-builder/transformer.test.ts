@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals'
 
-import { FunctionResponse } from '~/shared'
+import type { FunctionResponse } from '~/shared'
 import { discordUnixTimestamp } from '../helper'
 import { DiscordEmbedBuilder } from './builder'
 import {

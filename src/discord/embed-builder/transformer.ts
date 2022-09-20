@@ -1,5 +1,5 @@
-import { FunctionResponse } from '~/shared'
-import { DiscordEmbedBuilder } from './builder'
+import type { FunctionResponse } from '~/shared'
+import type { DiscordEmbedBuilder } from './builder'
 import { discordUnixTimestamp } from '../helper'
 
 export const defaultTimestamp = (n: number) => {
