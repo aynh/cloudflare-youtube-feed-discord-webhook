@@ -87,19 +87,7 @@ crons = ["*/5 * * * *"]
 
 ## Options
 
-- `channelIds`\*: Array of Youtube channel's id (e.g. UC-hM6YJuNYVAmUWxeIr9FeA).
-
-- `webhookUrl`\*: Discord Webhook URL, see [Intro to Webhooks](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks).
-
-- `store`\*: KV Namespace to store the responses.
-
-- `storeKey`\*: Key to be used to store the responses to `store`. It's recommended to have different `storeKey` between different `handle` to avoid conflicts.
-
-- `discord.webhookAvatar`: Avatar to be used when sending webhooks.
-
-- `discord.webhookUsername`: Username to be used when sending webhooks.
-
-- `hooks`: [Hooks](#hooks).
+> See the JSDoc [src/types.ts](./src/types.ts)
 
 ## Hooks
 
