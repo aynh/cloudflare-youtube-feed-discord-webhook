@@ -17,7 +17,8 @@ export const buildDiscordWebhookMessages = (
       ([embed, it]) => options.hooks?.mapDiscordEmbed?.(embed!, it) ?? embed!
     )
 
-  // discord only allows a maximum of 10 embeds/webhook
+  // discord only allows a maximum of 10 embeds/webhook message
+  // so we split them into a chunk of 10 embeds
   return chunked(embeds, 10)
     .map((embedsChunk) => ({
       avatar_url: options.discord?.webhookAvatar,
@@ -34,6 +35,7 @@ export const sendDiscordWebhooks = async (
   { webhookUrl }: Pick<YoutubeFeedDiscordWebhookOptions, 'webhookUrl'>
 ) => {
   const urls = Array.isArray(webhookUrl) ? webhookUrl : [webhookUrl]
+
   for (const message of messages) {
     for (const url of urls) {
       const response = await fetch(url, {

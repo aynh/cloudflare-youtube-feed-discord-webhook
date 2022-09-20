@@ -5,26 +5,24 @@ import { youtubeChannelLinkFromChannelId } from '../helper'
 import { buildDiscordEmbed, DiscordEmbedBuilder } from './builder'
 import { transformFresh, transformNotFresh } from './transformer'
 
-const value: FunctionResponse = {
-  videoId: 'CWjhbVmYrw8',
-  avatar:
-    'https://yt3.ggpht.com/ytc/AMLnZu-4v9u0XW29ThJHrutfQzTDSun8xJbi_d3HT12New=s48-c-k-c0x00ffffff-no-rj',
-  author: 'Okayu Ch. 猫又おかゆ',
-  channelId: 'UCvaTdHTWBGv3MKj3KVqJVCw',
-  title:
-    '【ファイアーエムブレム 蒼炎の軌跡】急にスッと出てくる漆黒さん #12【猫又おかゆ/ホロライブ】',
-  published: 1662544770000,
-  thumbnail: 'https://i.ytimg.com/vi/CWjhbVmYrw8/maxresdefault_live.jpg',
-  liveNow: false,
-  liveTime: { scheduledStart: 1662555600000 },
-  isUpcoming: true,
-}
-
 describe('DiscordEmbedBuilder methods', () => {
-  const createBuilder = () => new DiscordEmbedBuilder({ value })
+  const value: FunctionResponse = {
+    videoId: 'CWjhbVmYrw8',
+    avatar:
+      'https://yt3.ggpht.com/ytc/AMLnZu-4v9u0XW29ThJHrutfQzTDSun8xJbi_d3HT12New=s48-c-k-c0x00ffffff-no-rj',
+    author: 'Okayu Ch. 猫又おかゆ',
+    channelId: 'UCvaTdHTWBGv3MKj3KVqJVCw',
+    title:
+      '【ファイアーエムブレム 蒼炎の軌跡】急にスッと出てくる漆黒さん #12【猫又おかゆ/ホロライブ】',
+    published: 1662544770000,
+    thumbnail: 'https://i.ytimg.com/vi/CWjhbVmYrw8/maxresdefault_live.jpg',
+    liveNow: false,
+    liveTime: { scheduledStart: 1662555600000 },
+    isUpcoming: true,
+  }
 
   test('getValue', () => {
-    const builder = createBuilder()
+    const builder = new DiscordEmbedBuilder({ value })
     expect(builder.getValue('author')).toStrictEqual({
       name: value.author,
       icon_url: value.avatar,
@@ -33,7 +31,7 @@ describe('DiscordEmbedBuilder methods', () => {
   })
 
   test('setValue', () => {
-    const builder = createBuilder()
+    const builder = new DiscordEmbedBuilder({ value })
     expect(builder.body.title).toBe(value.title)
     expect(builder.modified).toBe(false)
 
@@ -43,7 +41,7 @@ describe('DiscordEmbedBuilder methods', () => {
   })
 
   test('setValueIf', () => {
-    const builder = createBuilder()
+    const builder = new DiscordEmbedBuilder({ value })
     expect(builder.body.title).toBe(value.title)
     expect(builder.modified).toBe(false)
 
@@ -57,7 +55,7 @@ describe('DiscordEmbedBuilder methods', () => {
   })
 
   test('pushFields', () => {
-    const builder = createBuilder()
+    const builder = new DiscordEmbedBuilder({ value })
     expect(builder.modified).toBe(false)
 
     builder.pushFields({ name: '1', value: '' }, { name: '2', value: '' })
@@ -78,7 +76,7 @@ describe('DiscordEmbedBuilder methods', () => {
   })
 
   test('unshiftFields', () => {
-    const builder = createBuilder()
+    const builder = new DiscordEmbedBuilder({ value })
     expect(builder.modified).toBe(false)
 
     builder.unshiftFields({ name: '1', value: '' }, { name: '2', value: '' })
@@ -121,7 +119,7 @@ describe('buildDiscordEmbed behavior', () => {
     expect(buildDiscordEmbed({ value, oldValue: value })).toBeUndefined()
   })
 
-  test('no oldValue', () => {
+  test('without oldValue', () => {
     const value = {
       videoId: '8m1Y-brrqds',
       avatar:

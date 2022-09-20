@@ -4,6 +4,7 @@ export const youtubeChannelLinkFromChannelId = (channelId: string) =>
 export const youtubeVideoLinkFromVideoId = (videoId: string) =>
   `https://www.youtube.com/watch?v=${videoId}`
 
+// https://discord.com/developers/docs/reference#message-formatting-timestamp-styles
 const timestampMap = {
   shortTime: 't',
   longTime: 'T',
@@ -14,17 +15,20 @@ const timestampMap = {
   relativeTime: 'R',
 }
 
+// https://discord.com/developers/docs/reference#message-formatting-timestamp-styles
 export const discordUnixTimestamp = <T extends keyof typeof timestampMap>(
   n: number,
   style?: T
 ) => `<t:${n / 1000}:${timestampMap[style ?? 'shortDateTime']}>`
 
+// https://discord.com/developers/docs/reference#message-formatting-formats
 const mentionMap = {
   channel: '#',
   role: '@&',
   user: '@',
 }
 
+// https://discord.com/developers/docs/reference#message-formatting-formats
 export const discordMention = <T extends keyof typeof mentionMap>(
   id: number | bigint,
   type: T

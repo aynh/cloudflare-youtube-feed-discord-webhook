@@ -21,6 +21,7 @@ export class DiscordEmbedBuilder {
         icon_url: avatar,
         url: youtubeChannelLinkFromChannelId(channelId),
       },
+      // TODO: I probably need to set different color for different kind of embed instead of using randomized numbers
       color: randomInt(0, 16_777_215),
       image: { url: thumbnail },
       timestamp: new Date(published),

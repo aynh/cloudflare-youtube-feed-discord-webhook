@@ -23,8 +23,8 @@ describe('helpers', () => {
   })
 
   test('rangeTimestamp', () => {
-    const to = 1661342981000,
-      from = 1661342409000
+    const from = 1661342409000
+    const to = 1661342981000
 
     const fromAbsoluteTimestamp = discordUnixTimestamp(from, 'shortDateTime')
     const toAbsoluteTimestamp = discordUnixTimestamp(to, 'shortDateTime')
